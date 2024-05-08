@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TodoItem from './ToDoItem';
 
-const TodoList = ({ todos, onDelete, onToggle }) => {
+const TodoList = ({ todos, onDelete, onToggle, onClearCompleted }) => {
     const [filter, setFilter] = useState('all');
 
     const filteredTodos = todos.filter(todo => {
@@ -27,10 +27,10 @@ const TodoList = ({ todos, onDelete, onToggle }) => {
             ))}
 
             <div className='todo-list'>
-                <p>Show:</p>
                 <button onClick={() => setFilter('all')}>All</button>
                 <button onClick={() => setFilter('active')}>Active</button>
                 <button onClick={() => setFilter('completed')}>Completed</button>
+                <button onClick={onClearCompleted}>Clear Completed</button>
             </div>
         </div>
     );

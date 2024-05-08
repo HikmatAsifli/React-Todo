@@ -39,6 +39,13 @@ const App = () => {
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
   };
 
+  const handleClearCompleted = () => {
+    const updatedTodos = todos.filter(todo => !todo.completed);
+    setTodos(updatedTodos);
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+  };
+
+
   const isDarkModeEnabled = localStorage.getItem('darkMode') === 'true';
   const [darkMode, setDarkMode] = useState(isDarkModeEnabled);
 
@@ -55,20 +62,24 @@ const App = () => {
   };
 
   return (
-
-    <div className={darkMode ? 'App dark-mode' : 'App'}>
-      <div className='todo'>
-        <h1>TODO</h1>
-        <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <TodoForm onAdd={handleAddTodo} />
-        <TodoList
-          todos={todos}
-          onDelete={handleDeleteTodo}
-          onToggle={handleToggleTodo}
-        />
+    <>
+      <div className={darkMode ? 'App dark-mode' : 'App'}>
+        <div className='todo'>
+          <div className="todo-app">
+            <h1>TODO</h1>
+            <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          </div>
+          <TodoForm onAdd={handleAddTodo} />
+          <TodoList
+            todos={todos}
+            onDelete={handleDeleteTodo}
+            onToggle={handleToggleTodo}
+            onClearCompleted={handleClearCompleted}
+          />
+        </div>
       </div>
-    </div>
-
+      <div className={darkMode ? 'banner' : 'dark-banner'}></div>
+    </>
   );
 };
 
